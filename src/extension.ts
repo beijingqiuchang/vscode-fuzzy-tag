@@ -39,6 +39,9 @@ async function fuzzySearch() {
 	if (full_name === undefined) { return; }
 	var long_pre_path = full_name[0].uri.path + "/";
 	var pre_path = long_pre_path.split(':')[1];
+	console.log("full_name:")
+	console.log(full_name)
+	console.log("end full name")
 	// Window.showInformationMessage(pre_path);
 	console.log(long_pre_path);
 	console.log(pre_path);
@@ -65,9 +68,15 @@ async function fuzzySearch() {
 
 						var tag = result["tag"];
 						var line = result["line"];
-						var path = result["path"].split(pre_path)[1]; // 显示相对路径
+						// var path = result["path"].split(pre_path)[1]; // 显示相对路径
+						var path = result["path"]
+						/*
+						console.log("-------------------")
+						console.log(line)
 						console.log(result["path"]);
 						console.log(path);
+						console.log("-------------------")
+						*/
 						// var info = result["info"];
 
 						var patt = new RegExp(pattern);
@@ -94,6 +103,10 @@ async function fuzzySearch() {
 						var key: string = tag + "@" + path;
 
 						location.set(key, { "path": path, "line": line });
+						// console.log("qqqqqqqqqqq")
+						// console.log(tag)
+						// console.log(path)
+						// console.log(line)
 						items.push(({ label: tag, description: path }));
 					});
 
@@ -111,7 +124,11 @@ async function fuzzySearch() {
 								new vscode.Position(value["line"], 0)),
 							preview: false,
 						};
-						await Window.showTextDocument(vscode.Uri.file(long_pre_path + value["path"]), options);
+						// console.log("start")
+						// console.log(long_pre_path)
+						// console.log(value["path"])
+						await Window.showTextDocument(vscode.Uri.file(value["path"]), options);
+						// console.log("end")
 						return;
 					});
 				}
